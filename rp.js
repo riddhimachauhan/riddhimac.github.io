@@ -80,13 +80,22 @@ $(document).ready(function() {
     // Form Submission to Google Sheets
     const scriptURL = 'https://script.google.com/macros/s/AKfycbzlLkVBZHsploXn-8lu21sTJEnXvEwETccXFQnxGEi9a1rsqVVM-9uMLa8Hmq_rIUQJ/exec';
     const form = document.forms['submit-to-google-sheet'];
-
+    const Success = document.getElementById('Success');
     form.addEventListener('submit', e => {
         e.preventDefault();
         fetch(scriptURL, { method: 'POST', body: new FormData(form)})
-            .then(response => console.log('Success!', response))
+            .then(response => {
+                Success.innerHTML="successfully submitted";
+
+            setTimeout(function()
+        {
+            Success.innerHTML=""; 
+        },1000)
+        form.reset(); 
+            })
             .catch(error => console.error('Error!', error.message));
-    });
+        }
+    );
 
     // Smooth Scrolling
     $('a[href*="#"]').on('click', function(event) {
